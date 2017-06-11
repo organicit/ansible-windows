@@ -1,0 +1,19 @@
+---
+- hosts: windows
+  tasks:
+  - name: Web site
+    win_feature:
+      name: Web-Server,Web-Common-Http
+      state: present
+
+  - name: Create folders
+    win_file:
+      path: C:\site\logs
+      state: directory
+
+  - name: Default site
+    win_iis_website:
+      name: "hello"
+      state: started
+      port: 80
+    register: website
